@@ -1,4 +1,4 @@
-# go-shell
+# go-shell [![Go Report Card](https://goreportcard.com/badge/github.com/adityaprakash-bobby/go-shell)](https://goreportcard.com/report/github.com/adityaprakash-bobby/go-shell)
 
 A simple gnome-like shell written in Go.
 
