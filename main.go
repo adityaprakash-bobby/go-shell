@@ -5,6 +5,7 @@ import (
     "bufio"
     "os"
     "os/exec"
+    "os/user"
     "errors"
     "strings"
 )
@@ -13,7 +14,25 @@ func main() {
     reader := bufio.NewReader(os.Stdin)
 
     for {
-        fmt.Print("> ")
+        userName, err := user.Current()
+        hostName, err := os.Hostname()
+        workingDir, err := os.Getwd()
+
+        defaultDirDepth := 3
+        folders := strings.Split(workingDir, "/")
+
+        shortWorkingDir := ""
+
+        if len(folders) > defaultDirDepth {
+            shortWorkingDir = strings.Join([]string{shortWorkingDir, "..."}, "/")
+            for i := defaultDirDepth; i > 0; i-- {
+                shortWorkingDir = strings.Join([]string{shortWorkingDir, folders[len(folders) - i]}, "/")
+            }
+        } else {
+            shortWorkingDir = workingDir
+        }
+
+        fmt.Print(userName.Username + "@" + hostName + "[" + shortWorkingDir + "]$ ")
 
         input, err := reader.ReadString('\n')
         if err != nil {
